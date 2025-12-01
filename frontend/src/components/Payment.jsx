@@ -89,7 +89,7 @@ const Payment = ({ showPopup, onClose, carts }) => {
   if (!showPopup) return null;
 
   return (
-    <div className='fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50'>
+    <div className='fixed inset-0 z-50 flex justify-center items-center bg-[rgba(0,0,0,0.5)] bg-opacity-50'>
       <div className='bg-white rounded-lg p-6 w-[90%] max-w-md shadow-lg relative max-h-[90vh] overflow-y-auto'>
         <IoCloseCircleSharp
           onClick={onClose}
