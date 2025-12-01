@@ -15,6 +15,7 @@ const Payment = ({ showPopup, onClose, carts }) => {
     phone: ''
   });
   const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState(null)
   const [step, setStep] = useState(1); 
 
   const { url, token } = useContext(AppContext);
@@ -40,7 +41,7 @@ const Payment = ({ showPopup, onClose, carts }) => {
 
   const handlePayment = async () => {
     if (!paymentMethod) {
-      alert('Please select a payment method');
+      setMsg('Please select a payment method');
       return;
     }
 
@@ -69,13 +70,16 @@ const Payment = ({ showPopup, onClose, carts }) => {
       );
 
       if (response.status === 201) {
-        alert(`Order placed successfully! Payment method: ${paymentMethod}`);
+        setMsg(`Order placed successfully! Payment method: ${paymentMethod}`);
         onClose();
-        navigate('/orders'); 
+        setTimeout(() => {
+             navigate('/orders'); 
+        }, 3000)
+        
       }
     } catch (error) {
       console.error('Order error:', error);
-      alert(error.response?.data?.message || 'Failed to create order');
+      setMsg(error.response?.data?.message || 'Failed to create order');
     } finally {
       setLoading(false);
       
@@ -204,6 +208,7 @@ const Payment = ({ showPopup, onClose, carts }) => {
             </div>
           </>
         )}
+        {msg && <p className='mt-5 text-center text-[14px]'>{msg}</p>}
       </div>
     </div>
   );

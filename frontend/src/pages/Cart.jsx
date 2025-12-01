@@ -8,7 +8,7 @@ import axios from 'axios';
 import Payment from '../components/Payment';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
-import { Oval } from 'react-loader-spinner'; 
+import { Oval } from 'react-loader-spinner';
 
 const Cart = () => {
   const [carts, setCart] = useState([]);
@@ -35,7 +35,7 @@ const Cart = () => {
         setCart(response.data.items);
       }
     } catch (error) {
-      console.log(error);
+      console.log('Error fetching cart:', error);
     } finally {
       setLoading(false);
     }
@@ -196,7 +196,7 @@ const Cart = () => {
                   </div>
                 ))}
               </div>
-              <div className='bg-white max-w-[300px] rounded-lg shadow-md p-6 mt-4'>
+              <div className='bg-white max-w-[300px] items-end rounded-lg shadow-md p-6 mt-4'>
                 <div className='flex justify-between items-center mb-4'>
                   <h2 className='text-2xl font-bold text-gray-800'>Cart Total</h2>
                   <h2 className='text-2xl font-bold text-blue-600'>₹{totalPrice.toFixed(2)}</h2>

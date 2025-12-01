@@ -122,7 +122,7 @@ const Product = () => {
                   name="minPrice"
                   onChange={handlefilter}
                   placeholder="0"
-                  className="w-[200px] text-[13px] border-1 py=0.5 px-1.5 border-gray-300 outline-0 rounded-sm"
+                  className="w-[80px] md:w-[200px] text-[13px] border-1 py=0.5 px-1.5 border-gray-300 outline-0 rounded-sm"
                 />
               </div>
               <div className="flex flex-col">
@@ -133,7 +133,7 @@ const Product = () => {
                   name="maxPrice"
                   onChange={handlefilter}
                   placeholder="0"
-                  className="w-[200px] text-[13px] border-1 py=0.5 px-1.5 border-gray-300 outline-0 rounded-sm"
+                  className="w-[80px] md:w-[200px] text-[13px] border-1 py=0.5 px-1.5 border-gray-300 outline-0 rounded-sm"
                 />
               </div>
               <div className="flex flex-col">
@@ -144,7 +144,7 @@ const Product = () => {
                   name="limit"
                   onChange={handlefilter}
                   placeholder="0"
-                  className="w-[100px] text-[13px] border-1 py=0.5 px-1.5 border-gray-300 outline-0 rounded-sm"
+                  className="w-[50px] md:w-[100px] text-[13px] border-1 py=0.5 px-1.5 border-gray-300 outline-0 rounded-sm"
                 />
               </div>
             </div>
