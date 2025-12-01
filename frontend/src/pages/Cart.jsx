@@ -196,7 +196,7 @@ const Cart = () => {
                   </div>
                 ))}
               </div>
-              <div className='bg-white max-w-[300px] items-end rounded-lg shadow-md p-6 mt-4'>
+              <div className='bg-white max-w-[300px] right-0 rounded-lg shadow-md p-6 mt-4'>
                 <div className='flex justify-between items-center mb-4'>
                   <h2 className='text-2xl font-bold text-gray-800'>Cart Total</h2>
                   <h2 className='text-2xl font-bold text-blue-600'>₹{totalPrice.toFixed(2)}</h2>
