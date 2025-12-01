@@ -7,6 +7,7 @@ import Product from './pages/Product'
 import AppContext from './context/AppContext'
 import ProductDetails from './pages/ProductDetails'
 import Cart from './pages/Cart'
+import Orders from './pages/Orders'
 
 function App() {
   const [token, setToken] = useState(null)
@@ -25,7 +26,7 @@ function App() {
     }
   }
 
-  const url = 'http://localhost:4000/api/'
+  const url = 'https://emart-mern.onrender.com/api/'
 
   return (
     <AppContext.Provider value={{
@@ -37,6 +38,7 @@ function App() {
         <Route path='/product' element={<Product />} />
         <Route path='/product/:id' element={<ProductDetails />} />
         <Route path='/cart' element={<Cart />} />
+        <Route path='/orders' element={<Orders />} />
       </Routes>
     </AppContext.Provider>
   )

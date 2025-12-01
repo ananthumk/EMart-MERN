@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from '../components/Header'
 import { useNavigate } from 'react-router-dom'
+import Footer from '../components/Footer'
 
 
 const Home = () => {
@@ -40,7 +41,7 @@ const Home = () => {
           <button 
             type="button" 
             onClick={() => navigate('/product')}
-            className="text-white text-[14px] md:text-[16px] font-normal border-none pt-3 pb-3 md:w-[150px] rounded-md bg-[#0967d2] mt-5 cursor-pointer outline-none hover:bg-[#0856b8] transition-colors"
+            className="text-white p-2 text-[14px] md:text-[16px] font-normal border-none pt-3 pb-3 md:w-[150px] rounded-md bg-[#0967d2] mt-5 cursor-pointer outline-none hover:bg-[#0856b8] transition-colors"
           >
             Shop Now
           </button>
@@ -55,6 +56,7 @@ const Home = () => {
       />
       
     </div>
+    <Footer />
     </div>
   )
 }

@@ -1,4 +1,5 @@
 const Order = require("../models/Order")
+const Cart = require("../models/Cart")  // ADDED THIS - Was missing!
 const Product = require("../models/Product")
 const sendOrderEmail = require("../utils/sendEmail")
 
@@ -27,6 +28,7 @@ const createOrder = async (req, res) => {
                     message: `Insufficient stock for ${product.name}`
                 });
             }
+            
             orderItems.push({
                 product: product._id,
                 name: product.name,
@@ -45,6 +47,7 @@ const createOrder = async (req, res) => {
             shippingAddress
         });
 
+        // Clear cart after order is created
         await Cart.findOneAndUpdate(
             { user: req.user._id },
             { items: [] }
@@ -52,16 +55,15 @@ const createOrder = async (req, res) => {
 
         await order.populate('user', 'name email');
 
-
         try {
             await sendOrderEmail(order, req.user);
         } catch (emailError) {
             console.error('Email sending failed:', emailError);
-
         }
 
         res.status(201).json({ order });
     } catch (error) {
+        console.error('Create order error:', error);
         res.status(500).json({ message: "Internal Server Error" })
     }
 }
@@ -93,7 +95,6 @@ const getOrderById = async (req, res, next) => {
             });
         }
 
-
         if (order.user._id.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
             return res.status(403).json({
                 message: 'Not authorized to view this order'
@@ -108,55 +109,7 @@ const getOrderById = async (req, res, next) => {
     }
 };
 
-const updateOrderStatus = async (req, res, next) => {
-    try {
-        const { status } = req.body;
-
-        const validStatuses = ['pending', 'processing', 'shipped', 'delivered', 'cancelled'];
-
-        if (!validStatuses.includes(status)) {
-            return res.status(400).json({
-                success: false,
-                message: 'Invalid status value'
-            });
-        }
-
-        const order = await Order.findById(req.params.id);
-
-        if (!order) {
-            return res.status(404).json({
-                success: false,
-                message: 'Order not found'
-            });
-        }
-
-        order.status = status;
-        await order.save();
-
-        res.status(200).json({
-            data: order
-        });
-    } catch (error) {
-        res.status(500).json({ message: "Internal Server Error" })
-    }
-};
-
-const getAllOrders = async (req, res, next) => {
-    try {
-        const orders = await Order.find()
-            .sort('-orderDate')
-            .populate('user', 'name email')
-            .populate('items.product', 'name image');
-
-        res.status(200).json({
-            count: orders.length,
-            data: orders
-        });
-    } catch (error) {
-        res.status(500).json({ message: "Internal Server Error" })
-
-    }
-};
 
 
-module.exports = { getAllOrders, updateOrderStatus, getOrderById, getOrders, createOrder }
+
+module.exports = { getOrderById, getOrders, createOrder }
