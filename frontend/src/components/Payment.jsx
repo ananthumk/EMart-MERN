@@ -15,7 +15,7 @@ const Payment = ({ showPopup, onClose, carts }) => {
     phone: ''
   });
   const [loading, setLoading] = useState(false);
-  const [step, setStep] = useState(1); // 1: Address, 2: Payment
+  const [step, setStep] = useState(1); 
 
   const { url, token } = useContext(AppContext);
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const Payment = ({ showPopup, onClose, carts }) => {
   };
 
   const handleNextStep = () => {
-    // Validate address
+  
     if (!shippingAddress.fullName || !shippingAddress.address || !shippingAddress.city || 
         !shippingAddress.postalCode || !shippingAddress.phone) {
       alert('Please fill all address fields');
@@ -47,14 +47,14 @@ const Payment = ({ showPopup, onClose, carts }) => {
     try {
       setLoading(true);
 
-      // Prepare order items
+      
       const items = carts.map(cart => ({
         product: cart.product._id,
         size: cart.size,
         quantity: cart.quantity
       }));
 
-      // Create order
+     
       const response = await axios.post(
         `${url}order`,
         {
@@ -71,13 +71,14 @@ const Payment = ({ showPopup, onClose, carts }) => {
       if (response.status === 201) {
         alert(`Order placed successfully! Payment method: ${paymentMethod}`);
         onClose();
-        navigate('/orders'); // Navigate to orders page
+        navigate('/orders'); 
       }
     } catch (error) {
       console.error('Order error:', error);
       alert(error.response?.data?.message || 'Failed to create order');
     } finally {
       setLoading(false);
+      
     }
   };
 
@@ -92,7 +93,6 @@ const Payment = ({ showPopup, onClose, carts }) => {
         />
 
         {step === 1 ? (
-          // Step 1: Shipping Address
           <>
             <h2 className='text-xl font-semibold mb-4'>Shipping Address</h2>
             <div className='flex flex-col gap-3'>
@@ -153,7 +153,6 @@ const Payment = ({ showPopup, onClose, carts }) => {
             </button>
           </>
         ) : (
-          // Step 2: Payment Method
           <>
             <h2 className='text-xl font-semibold mb-4'>Choose Payment Method</h2>
             <div className='flex flex-col gap-3'>
