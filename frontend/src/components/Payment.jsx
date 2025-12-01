@@ -71,8 +71,9 @@ const Payment = ({ showPopup, onClose, carts }) => {
 
       if (response.status === 201) {
         setMsg(`Order placed successfully! Payment method: ${paymentMethod}`);
-        onClose();
+        
         setTimeout(() => {
+          onClose();
              navigate('/orders'); 
         }, 3000)
         
