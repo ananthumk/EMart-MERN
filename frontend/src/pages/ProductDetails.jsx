@@ -9,7 +9,7 @@ import { Oval } from 'react-loader-spinner';
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
   const { url, token } = useContext(AppContext);
 
   const [product, setProduct] = useState(null);
@@ -78,7 +78,7 @@ const ProductDetails = () => {
       );
       if (response.data.success) {
         alert('Product added to cart successfully!');
-        navigate('/cart');
+        navigate('/cart'); 
       }
     } catch (error) {
       console.error('Error adding to cart:', error);
@@ -89,7 +89,7 @@ const ProductDetails = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50">
       <Header />
       {loading ? (
         <div className="flex justify-center items-center h-[80vh]">
@@ -121,79 +121,83 @@ const ProductDetails = () => {
           </Link>
         </div>
       ) : (
-        <div className="flex h-[90vh] justify-center mt-8 md:mt-16">
-          <div className="w-[85%] max-w-[550px] md:w-[80%] md:max-w-[1110px]">
-            <div className="flex flex-col md:flex-row md:justify-between md:mb-12">
-              <img
-                src={product.image}
-                alt="product"
-                className="rounded-2xl md:w-[48%] md:max-w-[540px] md:max-h-[476px] flex-shrink-0"
-              />
-              <div className="md:w-[48%]">
-                <h1 className="text-[#3e4c59] text-2xl md:text-5xl font-medium mt-6 md:mt-0 mb-4">
-                  {product.name}
-                </h1>
-                <p className="text-[#171f46] text-2xl font-bold mb-4">
-                  ₹{product.price}/-
-                </p>
-                <p className="text-[#616e7c] text-sm md:text-lg mt-4 mb-4 md:mb-6 leading-relaxed">
-                  {product.description}
-                </p>
-                <div className="mb-4">
-                  <p className="text-[#171f46] text-base md:text-lg font-medium mb-2">
-                    Select Size:
+        <div className="flex flex-col md:flex-row h-[90vh] justify-center mt-8 md:mt-16 px-4 md:px-0">
+          <div className="w-full md:w-[85%] max-w-[1110px] mx-auto">
+            <div className="flex flex-col md:flex-row md:justify-between gap-8">
+              <div className="md:w-1/2 flex-shrink-0">
+                <img
+                  src={product.image}
+                  alt="product"
+                  className="rounded-2xl w-full max-h-[476px] object-cover"
+                />
+              </div>
+              <div className="md:w-1/2 flex flex-col justify-between">
+                <div>
+                  <h1 className="text-[#3e4c59] text-2xl md:text-5xl font-medium mt-6 md:mt-0 mb-4">
+                    {product.name}
+                  </h1>
+                  <p className="text-[#171f46] text-2xl font-bold mb-4">
+                    ₹{product.price}/-
                   </p>
-                  <div className="flex gap-2">
-                    {product.sizes.map((size) => (
-                      <button
-                        key={size}
-                        onClick={() => setSelectedSize(size)}
-                        className={`px-4 py-2 border rounded transition-colors ${
-                          selectedSize === size
-                            ? 'bg-[#3b82f6] text-white border-[#3b82f6]'
-                            : 'bg-white text-gray-700 border-gray-300 hover:border-[#3b82f6]'
-                        }`}
-                      >
-                        {size}
-                      </button>
-                    ))}
+                  <p className="text-[#616e7c] text-sm md:text-lg mt-4 mb-6 leading-relaxed">
+                    {product.description}
+                  </p>
+                  <div className="mb-4">
+                    <p className="text-[#171f46] text-base md:text-lg font-medium mb-2">
+                      Select Size:
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {product.sizes.map((size) => (
+                        <button
+                          key={size}
+                          onClick={() => setSelectedSize(size)}
+                          className={`px-4 py-2 border rounded transition-colors ${
+                            selectedSize === size
+                              ? 'bg-[#3b82f6] text-white border-[#3b82f6]'
+                              : 'bg-white text-gray-700 border-gray-300 hover:border-[#3b82f6]'
+                          }`}
+                        >
+                          {size}
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                </div>
-                <div className="flex mb-4">
-                  <p className="text-[#171f46] text-base md:text-lg font-medium m-0">
-                    Category:
-                  </p>
-                  <p className="text-[#616e7c] text-base md:text-lg m-0 ml-2">
-                    {product.category}
-                  </p>
-                </div>
-                <div className="flex mb-4">
-                  <p className="text-[#171f46] text-base md:text-lg font-medium m-0">
-                    Available:
-                  </p>
-                  <p className="text-[#616e7c] text-base md:text-lg m-0 ml-2">
-                    {product.stock > 0 ? 'In Stock' : 'Out of Stock'}
-                  </p>
-                </div>
-                <hr className="border-t border-[#cbced2] m-0" />
-                <div className="flex items-center my-4">
-                  <button
-                    type="button"
-                    className="bg-transparent border-none outline-none cursor-pointer"
-                    onClick={handleDecrementQuantity}
-                  >
-                    <BsDashSquare className="text-[#616e7c] w-4 h-4" />
-                  </button>
-                  <p className="text-[#616e7c] text-xl md:text-2xl font-medium mx-6">
-                    {quantity}
-                  </p>
-                  <button
-                    type="button"
-                    className="bg-transparent border-none outline-none cursor-pointer"
-                    onClick={handleIncrementQuantity}
-                  >
-                    <BsPlusSquare className="text-[#616e7c] w-4 h-4" />
-                  </button>
+                  <div className="flex mb-4">
+                    <p className="text-[#171f46] text-base md:text-lg font-medium m-0">
+                      Category:
+                    </p>
+                    <p className="text-[#616e7c] text-base md:text-lg m-0 ml-2">
+                      {product.category}
+                    </p>
+                  </div>
+                  <div className="flex mb-4">
+                    <p className="text-[#171f46] text-base md:text-lg font-medium m-0">
+                      Available:
+                    </p>
+                    <p className="text-[#616e7c] text-base md:text-lg m-0 ml-2">
+                      {product.stock > 0 ? 'In Stock' : 'Out of Stock'}
+                    </p>
+                  </div>
+                  <hr className="border-t border-[#cbced2] m-0" />
+                  <div className="flex items-center my-4">
+                    <button
+                      type="button"
+                      className="bg-transparent border-none outline-none cursor-pointer"
+                      onClick={handleDecrementQuantity}
+                    >
+                      <BsDashSquare className="text-[#616e7c] w-4 h-4" />
+                    </button>
+                    <p className="text-[#616e7c] text-xl md:text-2xl font-medium mx-6">
+                      {quantity}
+                    </p>
+                    <button
+                      type="button"
+                      className="bg-transparent border-none outline-none cursor-pointer"
+                      onClick={handleIncrementQuantity}
+                    >
+                      <BsPlusSquare className="text-[#616e7c] w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
                 <button
                   type="button"
